@@ -1,0 +1,42 @@
+# Render Blueprint for the Pneumonia Detection backend.
+#
+# Usage:
+#   1. Push this repo to GitHub/GitLab.
+#   2. In Render: New -> Blueprint -> select the repo.
+#      Render reads this file and creates the web service automatically.
+#   3. Set these environment variables in the Render dashboard:
+#        PNEUMONIA_CORS_ORIGINS = https://<your-netlify-site>.netlify.app
+#        PNEUMONIA_MODEL_PATH   = /opt/render/project/src/models/pneumonia_classifier.keras
+#        PNEUMONIA_METADATA_PATH= /opt/render/project/src/models/model_metadata.json
+#      (the paths above match where Render checks out the repo)
+#
+# Notes:
+#   - The TensorFlow install + model load needs ~1.5 GB RAM. Render's free
+#     (512 MB) tier will OOM; use at least the Starter ($7/mo, 512 MB) or
+#     preferably Standard ($25/mo, 2 GB) instance.
+#   - Your model file (models/pneumonia_classifier.keras, ~53 MB) must be in
+#     the repo. Use Git LFS for large model files, or download it in
+#     render-build.sh from object storage.
+
+services:
+  - type: web
+    name: pneumonia-api
+    runtime: python
+    region: oregon
+    plan: standard
+    branch: main
+    buildCommand: "./render-build.sh"
+    startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: PNEUMONIA_CORS_ORIGINS
+        value: "https://your-netlify-site.netlify.app"
+      - key: PNEUMONIA_MODEL_PATH
+        value: /opt/render/project/src/models/pneumonia_classifier.keras
+      - key: PNEUMONIA_METADATA_PATH
+        value: /opt/render/project/src/models/model_metadata.json
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: "3"
+      - key: TF_ENABLE_ONEDNN_OPTS
+        value: "0"

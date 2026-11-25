@@ -1,0 +1,17 @@
+# Runtime dependencies for the FastAPI backend (deployment).
+# This is a slim subset of the root requirements.txt: training-only libraries
+# (kagglehub, matplotlib, seaborn, pandas, scikit-learn) are intentionally
+# omitted so the Render build is faster and the image smaller.
+
+# ---- Web backend (FastAPI) --------------------------------
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+pydantic>=2.9.0
+
+# ---- Image handling / numeric -----------------------------
+pillow>=10.4.0
+numpy>=1.26.0,<2.0.0
+
+# ---- Deep learning ----------------------------------------
+tensorflow>=2.16.0,<2.21.0

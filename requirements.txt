@@ -1,0 +1,34 @@
+# ============================================================
+# Pneumonia Detection System - Python dependencies
+# Tested with Python 3.12 (TensorFlow wheels are not published
+# for Python 3.13/3.14 at the time of writing).
+#
+#   python -m venv .venv
+#   .venv\Scripts\activate          (Windows)
+#   source .venv/bin/activate       (macOS / Linux)
+#   pip install -r requirements.txt
+# ============================================================
+
+# ---- Web backend (FastAPI) --------------------------------
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+pydantic>=2.9.0
+
+# ---- Image handling / numeric -----------------------------
+pillow>=10.4.0
+numpy>=1.26.0
+
+# ---- Deep learning ----------------------------------------
+tensorflow>=2.16.0,<2.21.0
+
+# ---- Dataset download & ML tooling ------------------------
+kagglehub>=0.3.4
+scikit-learn>=1.4.0
+matplotlib>=3.9.0
+seaborn>=0.13.0
+pandas>=2.2.0
+
+# ---- Tests ------------------------------------------------
+pytest>=8.3.0
+httpx>=0.27.0
