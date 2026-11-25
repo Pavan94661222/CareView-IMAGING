@@ -1,0 +1,31 @@
+# Python / virtual environments
+.venv
+venv
+env
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+
+# Frontend build artifacts
+frontend/node_modules
+frontend/dist
+frontend/.vite
+
+# Training / data
+.keras
+clinical_data
+reports
+*.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
